@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bb97f165-78a3-4bf8-a35d-cfaf00673514" name="Default Changelist" comment="" />
+    <list default="true" id="bb97f165-78a3-4bf8-a35d-cfaf00673514" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingStuff/TorchTesting.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestingStuff/TorchTesting.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +21,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TestingStuff/TorchTesting.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="378">
+              <caret line="21" column="35" lean-forward="true" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -39,10 +43,14 @@
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/TestingStuff/TorchTesting.py" root0="SKIP_INSPECTION" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/TestingStuff/Test.py" />
+        <option value="$PROJECT_DIR$/TestingStuff/TorchTesting.py" />
       </list>
     </option>
   </component>
@@ -64,6 +72,17 @@
             <path>
               <item name="MachineLearningIsHard" type="b2602c69:ProjectViewProjectNode" />
               <item name="MachineLearningIsHard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MachineLearningIsHard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MachineLearningIsHard" type="462c0819:PsiDirectoryNode" />
+              <item name="TestingStuff" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MachineLearningIsHard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MachineLearningIsHard" type="462c0819:PsiDirectoryNode" />
+              <item name="TestingStuff" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -136,6 +155,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2062" height="1126" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18015794" />
@@ -146,7 +166,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32964823" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -162,7 +182,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TestingStuff/TorchTesting.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="378">
+          <caret line="21" column="35" lean-forward="true" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
