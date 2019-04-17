@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb97f165-78a3-4bf8-a35d-cfaf00673514" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingStuff/MNIST Digits DATA/t10k-images-idx3-ubyte.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingStuff/MNIST Digits DATA/t10k-labels-idx1-ubyte.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingStuff/MNIST Digits DATA/train-images-idx3-ubyte.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingStuff/MNIST Digits DATA/train-labels-idx1-ubyte.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestingStuff/TorchTesting.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestingStuff/TorchTesting.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +24,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TestingStuff/TorchTesting.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="180">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -54,10 +58,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2836" />
-    <option name="y" value="168" />
-    <option name="width" value="1300" />
-    <option name="height" value="1048" />
+    <option name="x" value="297" />
+    <option name="y" value="-8" />
+    <option name="width" value="2032" />
+    <option name="height" value="1225" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -83,6 +87,12 @@
               <item name="TestingStuff" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="MachineLearningIsHard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MachineLearningIsHard" type="462c0819:PsiDirectoryNode" />
+              <item name="TestingStuff" type="462c0819:PsiDirectoryNode" />
+              <item name="MNIST Digits DATA" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -96,6 +106,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Leon's PC\Desktop\MachineLearningIsHard\TestingStuff\MNIST Digits DATA" />
       <recent name="C:\Users\Leon's PC\Desktop\MachineLearningIsHard\TestingStuff" />
     </key>
   </component>
@@ -180,8 +191,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TestingStuff/TorchTesting.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="180">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

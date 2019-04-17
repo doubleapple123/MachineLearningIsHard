@@ -2,11 +2,14 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+import torchvision
+import torchvision.transforms as transforms
 import timeit
 import matplotlib.pyplot as plt
 import numpy as np
-import torchvision
-import torchvision.transforms as transforms
+import os
+
+
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
