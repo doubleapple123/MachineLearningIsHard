@@ -8,25 +8,43 @@ import timeit
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import torchvision.models as models
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
+#OUTPUT DIMENSION =
+'''
+(W-K + 2P)/S + 1
+
+where 
+W = input height/length
+K = filter size
+P = padding 
+S = stride
+'''
 
 class Net(nn.Module):
     def __init__(self):
         super(Net,self).__init__()
 
-        self.conv1 = nn.Conv2d(1,20,5)
-        self.conv2 = nn.Conv2d(20,20,5)
-        self.lin1 = nn.Linear(440,22)
+        self.conv1 = nn.Conv2d(1, 6, 5)
+        self.conv2 = nn.Conv2d(6, 16, 5)
+        # an affine operation: y = Wx + b
+        self.fc1 = nn.Linear(16 * 5 * 5, 120)
+        self.fc2 = nn.Linear(120, 84)
+        self.fc3 = nn.Linear(84, 10)
 
     def forward(self,x):
         x = x.to(device)
 
-        x = F.relu(self.conv1(x))
-        x = F.relu(self.conv2(x))
-        #x = x.view(-1,self.num_flat_features(x))
-        x = self.lin1(x)
+        x = F.max_pool2d(F.relu(self.conv1(x)),  2)
+        # If the size is a square you can only specify a single number
+        x = F.max_pool2d(F.relu(self.conv2(x)), 2)
+        x = x.view(-1, self.num_flat_features(x))
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+
         return x
 
     def num_flat_features(self,x):
@@ -69,21 +87,11 @@ print(" ",join("%5s" % classes[labels[j]] for j in range(4)))
 net = Net()
 print(net)
 net.to(device)
-#input tensor
-input = torch.randn(1,1,30,30)
-
-out = net(input)
-
-#random target initialize
-target = torch.randn(10)
-#changes target shape
-target = target.view(1,-1)
-target = target.to(device)
 
 criterion = nn.MSELoss()
 
 EPOCH = 100
-learning_rate = 0.00001
+learning_rate = 0.0001
 
 #optimizer
 adamOP = optim.Adam(net.parameters(), lr = learning_rate)
@@ -96,14 +104,22 @@ plt.ylabel("y label")
 
 plt.title("plot")
 
+inputP = torch.randn(1,1,32,32)
+out = net(inputP)
+
+target = torch.randn(10)
+target = target.view(1,-1)
+print(target)
+
 loss_listADAM = []
 for x in range(EPOCH):
     adamOP.zero_grad()
     out = out.to(device)
-    out = net(input)
+    target = target.to(device)
+    out = net(inputP)
     loss = criterion(out,target)
     loss_listADAM.append(loss.item())
-    print(loss.item())
+    #print(loss.item())
     loss.backward()
     adamOP.step()
 
