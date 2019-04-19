@@ -9,10 +9,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import torchvision.models as models
+from torch.autograd import Variable
+
+import warnings
+warnings.filterwarnings("ignore")
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
-#OUTPUT DIMENSION =
+#device = "cpu"
+#OUTPUT DIMENSION OF A 2dCONV =
 '''
 (W-K + 2P)/S + 1
 
@@ -23,28 +27,50 @@ P = padding
 S = stride
 '''
 
+'''
+# OVERSAMPLING A NON BALANCED DATASET IS ALMOST ALWAYS BETTER
+# YOU SHOULD COPY NON BALANCED CLASSES, IT IS BETTER
+# https://arxiv.org/abs/1710.05381
+'''
+
+'''
+OVERFITTING:
+overfitting is when you for example have too many feature maps OR (out_channels) OR (kernel_size), and you tend
+to do better on TRAINING DATA than on TESTING DATA because of OVERFITTING
+'''
+
 class Net(nn.Module):
     def __init__(self):
         super(Net,self).__init__()
+        '''
+        #kernel = filter
+        #out_channels for convolutional layers are HOW MANY FILTERS THERE ARE
+        #kernel is the SIZE OF THE FILTERS!!!!!
+        '''
 
-        self.conv1 = nn.Conv2d(1, 6, 5)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        # an affine operation: y = Wx + b
-        self.fc1 = nn.Linear(16 * 5 * 5, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 10)
+        #IN A CONV NETWORK, THE FIRST CONV LAYER'S input_channel SHOULD MATCH
+        #HOW MANY COLOR CHANNELS THERE ARE
+        self.conv1 = nn.Conv2d(1, 2, 5)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.conv2 = nn.Conv2d(2, 16, 5)
+        self.fc1 = nn.Linear(2560, 10)
+        #self.fc2 = nn.Linear(1000, 300)
+        #self.fc3 = nn.Linear(300, 10)
+        #self.out = nn.Linear(10,10)
+
+    #THE LAST OUT LAYER SHOULD HAVE out_features *EQUAL*
+    #TO THE NUMBER OF CLASSES OR FEATURES YOUR DATASET HAVE
 
     def forward(self,x):
         x = x.to(device)
 
-        x = F.max_pool2d(F.relu(self.conv1(x)),  2)
-        # If the size is a square you can only specify a single number
-        x = F.max_pool2d(F.relu(self.conv2(x)), 2)
-        x = x.view(-1, self.num_flat_features(x))
+        x = self.pool(F.relu(self.conv1(x)))
+        x = self.pool(F.relu(self.conv2(x)))
+        x = x.view(-1, 2560)
         x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
-
+        #x = F.relu(self.fc2(x))
+        #x = F.celu(self.fc3(x))
+        #x = self.out(x)
         return x
 
     def num_flat_features(self,x):
@@ -54,74 +80,69 @@ class Net(nn.Module):
             num_features *= s
         return num_features
 
-'''
-transform = transforms.Compose(
-    [transforms.ToTensor(),
-     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
-trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
-                                        download=True, transform=transform)
-trainloader = torch.utils.data.DataLoader(trainset, batch_size=4,
-                                          shuffle=True, num_workers=2)
-
-testset = torchvision.datasets.CIFAR10(root='./data', train=False,
-                                       download=True, transform=transform)
-testloader = torch.utils.data.DataLoader(testset, batch_size=4,
-                                         shuffle=False, num_workers=2)
-
-classes = ('plane', 'car', 'bird', 'cat',
-           'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
-
-def imShow(img):
-    img = img/2 + 0.5
-    npimg = img.numpy()
-    plt/imshow(np.transpose(npimg, (1,2,0)))
-    plt.show()
-
-dataiter = iter(trainloader)
-image, labels = dataiter.next()
-
-imshow(torchvision.utils.make_grid(images))
-print(" ",join("%5s" % classes[labels[j]] for j in range(4)))
-'''
-net = Net()
-print(net)
-net.to(device)
-
-criterion = nn.MSELoss()
-
-EPOCH = 100
-learning_rate = 0.0001
-
-#optimizer
-adamOP = optim.Adam(net.parameters(), lr = learning_rate)
 
 start = timeit.default_timer()
 
-#matplot
 plt.xlabel("x label")
 plt.ylabel("y label")
 
 plt.title("plot")
 
-inputP = torch.randn(1,1,32,32)
-out = net(inputP)
+train_set = torchvision.datasets.FashionMNIST(
+    root = "./data/FashionMNIST"
+    ,train = True
+    ,download= True
+    ,transform = transforms.Compose([
+        transforms.ToTensor()
+    ])
 
-target = torch.randn(10)
-target = target.view(1,-1)
-print(target)
+)
+
+train_loader = torch.utils.data.DataLoader(
+    train_set, batch_size = 10
+
+)
+
+net = Net()
+print(net)
+net = net.to(device)
+
+criterion = nn.MSELoss()
+
+EPOCH = 5
+learning_rate = 0.002
+
+#optimizer
+optimizer = optim.Adam(net.parameters(), lr = learning_rate)
 
 loss_listADAM = []
+running_loss = 0
 for x in range(EPOCH):
-    adamOP.zero_grad()
-    out = out.to(device)
-    target = target.to(device)
-    out = net(inputP)
-    loss = criterion(out,target)
-    loss_listADAM.append(loss.item())
-    #print(loss.item())
-    loss.backward()
-    adamOP.step()
+    for i, (images,labels) in enumerate(train_loader):
+        images = Variable(images)
+        labels = Variable(labels)
+        labels = labels.to(device)
+        labels = labels.to(dtype = torch.float)
+
+        optimizer.zero_grad()
+        outputs = net(images)
+        outputs = outputs.to(device)
+        loss = criterion(outputs,labels)
+        loss.backward()
+        optimizer.step()
+
+        running_loss += loss.item()
+        #print(loss.item())
+        if i % 80 == 0:
+            loss_listADAM.append(loss.item())
+
+        if i % 100 == 0:
+            print('[%d, %5d] loss: %.3f' %
+                  (x + 1, i, running_loss / 100))
+            running_loss = 0.0
+
+print("DONE")
 
 stop = timeit.default_timer()
 
